@@ -4,7 +4,7 @@ metadata:
   name: ex-host
 subsets:
   - addresses:
-      - ip: 172.18.0.1
+      - ip: 172.20.10.10
     ports:
       - name: mariadb
         port: 3306
