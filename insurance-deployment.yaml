@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: insurance
+  name: insurance
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: insurance
+  template:
+    metadata:
+      labels:
+        app: insurance
+    spec:
+      containers:
+        - image: docker.io/choidongjun/graduationwork:77
+          name: insurance
+          ports:
+            - containerPort: 8080
+              name: insurance
+          env:
+            - name: SPRING_DATASOURCE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: insurance-secret
+                  key: spring.datasource.url
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: insurance-secret
+                  key: spring.datasource.password
+            - name: SPRING_MAIL_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: insurance-secret
+                  key: spring.mail.username
+            - name: SPRING_MAIL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: insurance-secret
+                  key: spring.mail.password
+            - name: METAMASK_PRIVATE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: insurance-secret
+                  key: metamask.private.key
+            - name: ETHERSCAN_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: insurance-secret
+                  key: etherscan.api.key
